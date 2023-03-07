@@ -32,15 +32,11 @@ class _SampleNavigationAppState extends State<SampleNavigationApp> {
       latitude: 38.90894949285854,
       longitude: -77.03651905059814);
 
-  final _home = WayPoint(
-      name: "Home",
-      latitude: 37.77440680146262,
-      longitude: -122.43539772352648);
+  final _home =
+      WayPoint(name: "Home", latitude: 33.7779695, longitude: -84.3932681);
 
-  final _store = WayPoint(
-      name: "Store",
-      latitude: 37.76556957793795,
-      longitude: -122.42409811526268);
+  final _store =
+      WayPoint(name: "Store", latitude: 33.9498101, longitude: -83.3755279);
 
   MapBoxNavigation _directions;
   MapBoxOptions _options;
@@ -66,8 +62,8 @@ class _SampleNavigationAppState extends State<SampleNavigationApp> {
 
     _directions = MapBoxNavigation(onRouteEvent: _onEmbeddedRouteEvent);
     _options = MapBoxOptions(
-      //initialLatitude: 36.1175275,
-      //initialLongitude: -115.1839524,
+        //initialLatitude: 36.1175275,
+        //initialLongitude: -115.1839524,
         zoom: 15.0,
         tilt: 0.0,
         bearing: 0.0,
@@ -139,8 +135,8 @@ class _SampleNavigationAppState extends State<SampleNavigationApp> {
                                 wayPoints: wayPoints,
                                 options: MapBoxOptions(
                                     mode:
-                                    MapBoxNavigationMode.drivingWithTraffic,
-                                    simulateRoute: false,
+                                        MapBoxNavigationMode.drivingWithTraffic,
+                                    simulateRoute: true,
                                     language: "en",
                                     units: VoiceUnits.metric));
                           },
@@ -164,7 +160,7 @@ class _SampleNavigationAppState extends State<SampleNavigationApp> {
                                 wayPoints: wayPoints,
                                 options: MapBoxOptions(
                                     mode: MapBoxNavigationMode.driving,
-                                    simulateRoute: true,
+                                    simulateRoute: false,
                                     language: "en",
                                     allowsUTurnAtWayPoints: true,
                                     units: VoiceUnits.metric));
@@ -194,17 +190,18 @@ class _SampleNavigationAppState extends State<SampleNavigationApp> {
                           onPressed: _isNavigating
                               ? null
                               : () {
-                            if (_routeBuilt) {
-                              _controller.clearRoute();
-                            } else {
-                              var wayPoints = <WayPoint>[];
-                              wayPoints.add(_home);
-                              wayPoints.add(_store);
-                              _isMultipleStop = wayPoints.length > 2;
-                              _controller.buildRoute(
-                                  wayPoints: wayPoints, options: _options);
-                            }
-                          },
+                                  if (_routeBuilt) {
+                                    _controller.clearRoute();
+                                  } else {
+                                    var wayPoints = <WayPoint>[];
+                                    wayPoints.add(_home);
+                                    wayPoints.add(_store);
+                                    _isMultipleStop = wayPoints.length > 2;
+                                    _controller.buildRoute(
+                                        wayPoints: wayPoints,
+                                        options: _options);
+                                  }
+                                },
                         ),
                         SizedBox(
                           width: 10,
@@ -213,8 +210,8 @@ class _SampleNavigationAppState extends State<SampleNavigationApp> {
                           child: Text("Start "),
                           onPressed: _routeBuilt && !_isNavigating
                               ? () {
-                            _controller.startNavigation();
-                          }
+                                  _controller.startNavigation();
+                                }
                               : null,
                         ),
                         SizedBox(
@@ -224,8 +221,8 @@ class _SampleNavigationAppState extends State<SampleNavigationApp> {
                           child: Text("Cancel "),
                           onPressed: _isNavigating
                               ? () {
-                            _controller.finishNavigation();
-                          }
+                                  _controller.finishNavigation();
+                                }
                               : null,
                         )
                       ],
